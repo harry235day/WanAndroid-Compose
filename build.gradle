@@ -1,0 +1,119 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+}
+
+android {
+    compileSdkVersion 31
+    buildToolsVersion "31.0.0"
+
+    defaultConfig {
+        applicationId "com.zll.compose"
+        minSdkVersion 21
+        targetSdkVersion 31
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    ///compose
+    kotlinOptions {
+        jvmTarget = '1.8'
+        useIR = true
+    }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerVersion "$kotlin_version"
+        kotlinCompilerExtensionVersion "$compose_version"
+    }
+}
+
+dependencies {
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
+    implementation 'com.google.android.material:material:1.4.0'
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
+
+
+    implementation "androidx.compose.runtime:runtime:$compose_version"
+    implementation "androidx.compose.ui:ui:$compose_version"
+    implementation "androidx.compose.foundation:foundation-layout:$compose_version"
+    implementation "androidx.compose.material:material:$compose_version"
+    implementation "androidx.compose.material:material-icons-extended:$compose_version"
+    implementation "androidx.compose.foundation:foundation:$compose_version"
+    implementation "androidx.compose.animation:animation:$compose_version"
+    implementation "androidx.compose.ui:ui-tooling:$compose_version"
+    implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
+    implementation "androidx.paging:paging-compose:1.0.0-alpha14"
+
+    //Accompanist
+    implementation "com.google.accompanist:accompanist-swiperefresh:$accompanist_version"
+    implementation "com.google.accompanist:accompanist-insets:$accompanist_version"
+    implementation "com.google.accompanist:accompanist-systemuicontroller:$accompanist_version"
+    implementation "com.google.accompanist:accompanist-permissions:$accompanist_version"
+
+
+    // hilt
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03"
+    // When using Kotlin.
+    kapt "androidx.hilt:hilt-compiler:1.0.0-beta01"
+    implementation "androidx.hilt:hilt-navigation-compose:1.0.0-beta01"
+
+    //paging
+    implementation("androidx.paging:paging-compose:1.0.0-alpha14")
+
+
+    implementation 'androidx.appcompat:appcompat:1.4.0'
+    implementation 'androidx.activity:activity-ktx:1.4.0'
+    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation "androidx.activity:activity-compose:1.4.0"
+
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.4.0"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.4.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.4.0"
+
+    implementation "com.google.accompanist:accompanist-coil:0.8.0"
+
+    implementation 'androidx.navigation:navigation-compose:2.4.0-rc01'
+
+    implementation "androidx.window:window:1.0.0-rc01"
+
+    implementation "androidx.constraintlayout:constraintlayout-compose:1.0.0-rc02"
+
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2"
+
+    //theme
+    implementation "com.google.android.material:compose-theme-adapter:1.0.2"
+    // Compatible with Compose Material 3, includes Mdc3Theme
+    implementation "com.google.android.material:compose-theme-adapter-3:1.0.2"
+
+
+    //retrofit
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
+    implementation "com.squareup.okhttp3:okhttp:3.14.9"
+    implementation "com.google.code.gson:gson:2.8.9"
+
+
+}

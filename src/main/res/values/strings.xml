@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">compose-test</string>
+    <string name="label_settings">label_settings</string>
+    <string name="choose_topics_that_interest_you">choose_topics_that_interest_you</string>
+    <string name="label_continue_to_courses">label_continue_to_courses</string>
+</resources>
