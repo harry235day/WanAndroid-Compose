@@ -30,7 +30,7 @@
 <img src = "https://upload-images.jianshu.io/upload_images/4668571-ebf338382dd1b94d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" width = "200" height= "400"/>
 </div>
 
-<div >
+<div align = center>
 <img src = "https://upload-images.jianshu.io/upload_images/4668571-1866c54453286230.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" width = "200" height= "400"/>
    
 </div>
