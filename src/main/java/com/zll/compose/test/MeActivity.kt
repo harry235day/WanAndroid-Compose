@@ -23,6 +23,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
@@ -85,7 +86,7 @@ class MeActivity : AppCompatActivity() {
 //                }
 
                 Scaffold() {
-                    Conversation(vm)
+                    CircularProgressIndicator()
                 }
 
 //                val drawerState = rememberDrawerState(DrawerValue.Closed)
@@ -103,6 +104,28 @@ class MeActivity : AppCompatActivity() {
         }
     }
 
+
+    @Composable
+    fun TextF() {
+        val value = rememberSaveable {
+            mutableStateOf("")
+        }
+        OutlinedTextField(
+            value = value.value,
+            label = {
+                Text(text = "登录名")
+            },
+            placeholder = {
+                Text(text = "请输入登录名")
+            },
+            singleLine = true,
+            leadingIcon = {
+                Icon(Icons.Default.Person, contentDescription = null)
+            },
+            onValueChange = {
+                value.value = it
+            })
+    }
 
     @ExperimentalMaterialApi
     @Composable
@@ -216,7 +239,7 @@ class MeActivity : AppCompatActivity() {
             composable("app2") {
                 App2(vm, nav)
             }
-            composable("barchart"){
+            composable("barchart") {
                 ChartDataPreview()
             }
         }
@@ -243,8 +266,6 @@ class MeActivity : AppCompatActivity() {
 //        NestScrollView()
 //        NestScrollView2()
     }
-
-
 
 
     @Composable
@@ -344,7 +365,8 @@ class MeActivity : AppCompatActivity() {
                     Box(
                         Modifier
                             .size(50.dp)
-                            .background(Color.Cyan))
+                            .background(Color.Cyan)
+                    )
                     Text(title)
                 }
             } else {
@@ -356,7 +378,8 @@ class MeActivity : AppCompatActivity() {
                     Box(
                         Modifier
                             .size(50.dp)
-                            .background(Color.Cyan))
+                            .background(Color.Cyan)
+                    )
                 }
             }
         }

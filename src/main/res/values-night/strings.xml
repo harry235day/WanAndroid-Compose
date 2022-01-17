@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="Home">首页</string>
+    <string name="Square">广场</string>
+    <string name="Public">公众号</string>
+    <string name="System">体系</string>
+    <string name="Project">项目</string>
+</resources>

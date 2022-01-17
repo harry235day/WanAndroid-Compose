@@ -1,4 +1,3 @@
 package com.zll.compose.util
 
-class EmpotyException {
-}
+data class EmptyException(val msg:String?,val e:Throwable?=null):Exception(msg,e)

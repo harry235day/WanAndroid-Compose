@@ -3,4 +3,9 @@
     <string name="label_settings">label_settings</string>
     <string name="choose_topics_that_interest_you">choose_topics_that_interest_you</string>
     <string name="label_continue_to_courses">label_continue_to_courses</string>
+    <string name="Home">首页</string>
+    <string name="Square">广场</string>
+    <string name="Public">公众号</string>
+    <string name="System">体系</string>
+    <string name="Project">项目</string>
 </resources>

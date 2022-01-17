@@ -5,22 +5,14 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.compose.setContent
-import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.launch
 import androidx.annotation.DrawableRes
-import androidx.annotation.IntegerRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowRight
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
@@ -28,14 +20,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.asImageBitmap
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.layout.HorizontalAlignmentLine
-import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.platform.ComposeView
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
@@ -45,21 +31,20 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.view.WindowCompat
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionRequired
 import com.google.accompanist.permissions.rememberPermissionState
 import com.google.android.material.composethemeadapter.MdcTheme
-import com.google.android.material.composethemeadapter3.Mdc3Theme
 import com.zll.compose.ext.number
 import com.zll.compose.util.*
-import com.zll.compose.views.TextViewLayout
+import com.zll.compose.views.HorizontalSpacer
+import com.zll.compose.views.ImageCircle
+import com.zll.compose.views.VerticalSpacer
 import com.zll.compose.vm.CountModel
-import kotlinx.coroutines.launch
+
 @ExperimentalPermissionsApi
 class MainActivity : AppCompatActivity() {
 
@@ -85,7 +70,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     @ExperimentalPermissionsApi
-    @Preview
+    @Preview("mainActivity1")
     @Composable
     fun MeView() {
         BoxWithConstraints(Modifier.fillMaxSize()) {
@@ -389,35 +374,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    @Composable
-    fun VerticalSpacer(space: Dp = 10.dp) {
-        Spacer(Modifier.height(space))
-    }
 
-    @Composable
-    fun HorizontalSpacer(space: Dp = 10.dp) {
-        Spacer(Modifier.width(space))
-    }
-
-    @Composable
-    fun ImageCircle(@DrawableRes ids: Int, dp: Dp) {
-        val modifier = Modifier
-            .size(dp)
-            .border(2.dp, Color.White, shape = RoundedCornerShape(dp))
-            .clip(RoundedCornerShape(dp))
-
-        Image(painter = painterResource(id = ids), modifier = modifier, contentDescription = "id", contentScale = ContentScale.Crop)
-    }
-
-    @Composable
-    fun ImageCircle(bitmap: Bitmap, dp: Dp) {
-        val modifier = Modifier
-            .size(dp)
-            .border(2.dp, Color.White, shape = RoundedCornerShape(dp))
-            .clip(RoundedCornerShape(dp))
-
-        Image(bitmap = bitmap.asImageBitmap(), modifier = modifier, contentDescription = "id", contentScale = ContentScale.Crop)
-    }
 
     @ExperimentalPermissionsApi
     @Composable

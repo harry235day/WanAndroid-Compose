@@ -82,7 +82,7 @@ class CustomActivity : AppCompatActivity() {
         //composeView.disposeComposition()//
     }
 
-    @Preview
+    @Preview("custome")
     @Composable
     fun MeView() {
         Column(

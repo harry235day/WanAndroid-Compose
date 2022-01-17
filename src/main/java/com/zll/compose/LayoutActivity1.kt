@@ -119,7 +119,7 @@ class LayoutActivity1 : AppCompatActivity() {
         }
     }
 
-    @Preview
+    @Preview("layoutactivity")
     @Composable
     fun DefaultPreview() {
         NewsStory()

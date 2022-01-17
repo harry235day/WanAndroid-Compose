@@ -1,18 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.zll.compose">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
+
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Test" >
+        android:theme="@style/Theme.Test">
 
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:exported="true">
+
+        </activity>
+
+        <activity
+            android:name=".CustomActivity"
+            android:exported="true">
+
+        </activity>
+
+        <activity
+            android:name=".ExampleActivity"
+            android:exported="true">
+
+        </activity>
+
+        <activity android:name=".LayoutActivity1">
+
+        </activity>
+        <activity
+            android:name=".test.MeActivity"
+            android:exported="true">
+
+        </activity>
+
+        <activity
+            android:name=".ComposeActivity"
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -21,22 +53,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".CustomActivity"
-            android:exported="true">
-
-        </activity>
-
-        <activity android:name=".ExampleActivity"
-            android:exported="true">
-
-        </activity>
-
-        <activity android:name=".LayoutActivity1">
-
-        </activity>
-        <activity android:exported="true" android:name=".test.MeActivity">
-
-        </activity>
     </application>
 
 </manifest>
