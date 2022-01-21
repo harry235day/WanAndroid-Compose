@@ -2,6 +2,7 @@ package com.zll.compose.compose.ui
 
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -11,6 +12,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.google.accompanist.insets.LocalWindowInsets
 import com.google.accompanist.insets.rememberInsetsPaddingValues
 import com.google.accompanist.insets.statusBarsPadding
@@ -48,4 +50,15 @@ fun TopBar(
             }
         }
     )
+}
+
+@Composable
+fun NavigationTopBar(navHostController: NavHostController,title: String,
+                     leftIcon: ImageVector=Icons.Default.ArrowBack,leftClick: () -> Unit={}){
+    TopBar(title = title,
+        leftIcon = leftIcon,
+        leftClick = {
+        navHostController.popBackStack()
+        leftClick()
+    })
 }

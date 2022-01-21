@@ -2,18 +2,20 @@ package com.zll.compose.compose
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.composable
+import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.zll.compose.R
 import com.zll.compose.compose.page.main.*
 import com.zll.compose.compose.util.StatusBar
 
+@ExperimentalAnimationApi
 @ExperimentalPagerApi
 fun NavGraphBuilder.courses(
     drawerClick: () -> Unit = {},
@@ -22,7 +24,7 @@ fun NavGraphBuilder.courses(
     onboardingComplete: State<Boolean>,
     modifier: Modifier = Modifier
 ) {
-    composable(CourseTabs.HOME.route) { from ->
+    composable(CourseTabs.HOME.route) {
         LaunchedEffect(onboardingComplete) {
             if (!onboardingComplete.value) {
                 navController.navigate(MainDestinations.SPLASH)
@@ -33,7 +35,7 @@ fun NavGraphBuilder.courses(
             HomeViewCompose(modifier, navController,drawerClick)
         }
     }
-    composable(CourseTabs.SQUARE.route) { from ->
+    composable(CourseTabs.SQUARE.route) {
         StatusBar.isTransparentState.value = false
         SquareViewCompose(
             modifier, navController,drawerClick

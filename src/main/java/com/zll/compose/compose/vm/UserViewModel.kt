@@ -15,6 +15,7 @@ import com.zll.compose.util.EmptyException
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.transform
 
 class UserViewModel : BaseViewModel() {
     private val repository = Repository()
@@ -26,8 +27,11 @@ class UserViewModel : BaseViewModel() {
     val loading = MutableLiveData<NetWorkState>()
 
     val loginData: LiveData<Result<BaseModel<Any>>>
-
     private val _loginData = MutableLiveData<Pair<String, String>>()
+
+    val logoutData: LiveData<Result<BaseModel<Any>>>
+    private val _logoutData = MutableLiveData<Unit>()
+
 
     init {
         userInfo = _userInfo.switchMap {
@@ -69,6 +73,35 @@ class UserViewModel : BaseViewModel() {
             }
         }
 
+        logoutData = _logoutData.switchMap {
+            liveData {
+                repository.logout()
+                    .onStart {
+                        loading.value = NetWorkState.loading()
+                    }
+                    .transform {
+                        if(it.isCodeOk()){
+                            clearLogin()
+                        }
+                        emit(it)
+                    }
+                    .catch {
+                        loading.value = NetWorkState.error("请求失败", it)
+                        emit(Result.failure(it))
+                    }
+                    .collect {
+                        if (it.isCodeOk()) {
+
+                            loading.value = NetWorkState.success(if (it.errorMsg.isNullOrBlank()) "退出成功" else it.errorMsg)
+                            emit(Result.success(it))
+                        } else {
+                            loading.value = NetWorkState.error(it.errorMsg ?: "退出失败", null)
+                            emit(Result.failure(EmptyException(it.errorMsg)))
+                        }
+                    }
+            }
+        }
+
     }
 
     fun loadUserInfo() {
@@ -77,6 +110,9 @@ class UserViewModel : BaseViewModel() {
 
     fun login(name: String, pwd: String) {
         _loginData.value = Pair(name, pwd)
+    }
+    fun logout() {
+        _logoutData.value = Unit
     }
 
 

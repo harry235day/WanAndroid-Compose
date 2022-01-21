@@ -1,5 +1,6 @@
 package com.zll.compose.compose
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -23,6 +24,7 @@ import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.insets.navigationBarsHeight
 import com.google.accompanist.insets.navigationBarsPadding
+import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.zll.compose.compose.page.DrawerViewCompose
 import com.zll.compose.compose.theme.CustomTheme
@@ -32,6 +34,7 @@ import com.zll.compose.util.*
 import kotlinx.coroutines.launch
 import java.util.*
 
+@ExperimentalAnimationApi
 @ExperimentalPagerApi
 @Composable
 fun MyApp(finishActivity: () -> Unit) {
@@ -50,7 +53,7 @@ fun MyApp(finishActivity: () -> Unit) {
             }
 
             val scaffoldState = rememberScaffoldState()
-            val navController = rememberNavController()
+            val navController = rememberAnimatedNavController()
             val scope = rememberCoroutineScope()
             Scaffold(
                 scaffoldState = scaffoldState,

@@ -31,10 +31,6 @@ fun ErrorComposable(title: String = "网络不佳，请点击重试", block: () 
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Icon(
-            Icons.Default.PermScanWifi, contentDescription = null, tint = Color.Red,
-            modifier = Modifier.size(50.dp)
-        )
 //        Image(
 //            modifier = Modifier.size(300.dp, 180.dp),
 //            painter = painterResource(id = R.drawable.svg_empty),

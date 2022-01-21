@@ -21,6 +21,7 @@ import androidx.navigation.NavHostController
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.zll.compose.compose.model.ProjectListData
 import com.zll.compose.compose.model.TabBaseModel
+import com.zll.compose.compose.navSearch
 import com.zll.compose.compose.page.home.HomeItemView
 import com.zll.compose.compose.page.home.getAuthor
 import com.zll.compose.compose.ui.NestTopAndContentView
@@ -82,7 +83,10 @@ fun PublicViewCompose(modifier: Modifier, navController: NavHostController, draw
                         title = "公众号",
                         leftIcon = Icons.Default.Menu,
                         menuIcon = Icons.Filled.Search,
-                        leftClick = drawerClick
+                        leftClick = drawerClick,
+                        menuClick = {
+                            navSearch(navController)
+                        }
                     )
                     TabLayoutCompose(tabBarIndex = Nav.publicIndex, tabData = tabListData as? List<TabBaseModel>)
                 }

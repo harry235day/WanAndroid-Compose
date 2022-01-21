@@ -61,6 +61,7 @@ import com.zll.compose.views.*
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import java.io.File
 
 
 @ExperimentalFoundationApi
@@ -74,6 +75,8 @@ class MeActivity : AppCompatActivity() {
 //        WindowCompat.setDecorFitsSystemWindows(window, false)
 //        window.statusBarColor = android.R.color.transparent
         super.onCreate(savedInstanceState)
+        File(cacheDir,"xx").absolutePath
+
         setContent {
             MaterialTheme {
 //                Scaffold(

@@ -16,5 +16,4 @@ data class CommonPageModel<T>(
         val size: Int,
         val total: Int
     )
-
 }

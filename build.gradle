@@ -77,7 +77,7 @@ dependencies {
     implementation "com.google.accompanist:accompanist-placeholder:$accompanist_version"
     implementation "com.google.accompanist:accompanist-pager:$accompanist_version"
     implementation "com.google.accompanist:accompanist-flowlayout:$accompanist_version"
-
+    implementation "com.google.accompanist:accompanist-navigation-animation:$accompanist_version"
 
     // hilt
     implementation "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03"
@@ -133,4 +133,8 @@ dependencies {
     //存储
     implementation "androidx.datastore:datastore-preferences:$datastore_version"
     implementation "com.tencent:mmkv-static:$mmkv_version"
+
+    implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
 }

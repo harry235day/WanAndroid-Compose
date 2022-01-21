@@ -1,20 +1,21 @@
 package com.zll.compose.compose.ui
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
+import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.itemsIndexed
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
+import com.zll.compose.compose.util.ErrorMoreRetryItem
+import com.zll.compose.compose.util.LoadingItem
 import com.zll.compose.compose.util.PagingStateUtil
 import com.zll.compose.ext.sleepTime
 
@@ -31,7 +32,7 @@ fun <T : Any> SwipeRefreshContent(
     content: @Composable (index: Int, data: T) -> Unit
 ) {
     Column(
-        modifier =modifier
+        modifier = modifier
             .fillMaxSize()
             .padding(top = contentTopPadding)
     ) {
@@ -41,12 +42,10 @@ fun <T : Any> SwipeRefreshContent(
             onRefresh = {
                 //显示刷新头
                 refreshState.isRefreshing = true
-                stateRefresh.invoke(true)
                 //刷新数据
                 lazyPagingListData.refresh()
                 viewModel.sleepTime(1000) {
                     refreshState.isRefreshing = false
-                    stateRefresh.invoke(false)
                 }
             }
         ) {
@@ -57,6 +56,23 @@ fun <T : Any> SwipeRefreshContent(
                     itemsIndexed(lazyPagingListData) { index, data ->
                         SimpleCard(cardHeight = cardHeight) {
                             content(index, data!!)
+                        }
+                    }
+                    //如果在加载途中遇到错误的话，pagingData的状态为append
+                    when (lazyPagingListData.loadState.append) {
+                        //加载失败
+                        is LoadState.Error -> {
+                            item {
+                                ErrorMoreRetryItem{
+                                    lazyPagingListData.retry()
+                                }
+                            }
+                        }
+                        //加载中
+                        LoadState.Loading -> {
+                            item {
+                                LoadingItem()
+                            }
                         }
                     }
                 }
@@ -155,6 +171,64 @@ fun <T : Any> SwipeRefreshContent(
             }
         ) {
             content()
+        }
+
+    }
+}
+
+@Composable
+fun <T : Any> SwipeRefreshContent(
+    viewModel: ViewModel,
+    lazyPagingListData: LazyPagingItems<T>,
+    modifier: Modifier = Modifier,
+    state: LazyListState = rememberLazyListState(),
+    itemContent: LazyListScope.() -> Unit = {},
+    content: @Composable (index: Int, data: T) -> Unit
+) {
+    Column(
+        modifier =modifier
+            .fillMaxSize()
+    ) {
+        val refreshState = rememberSwipeRefreshState(false)
+        SwipeRefresh(
+            state = refreshState,
+            onRefresh = {
+                //显示刷新头
+                refreshState.isRefreshing = true
+                //刷新数据
+                lazyPagingListData.refresh()
+                viewModel.sleepTime(1000) {
+                    refreshState.isRefreshing = false
+                }
+            }
+        ) {
+            //列表数据
+            PagingStateUtil().pagingState(lazyPagingListData, refreshState, viewModel) {
+                LazyColumn(modifier = Modifier.fillMaxSize(), state = state) {
+                    itemContent()
+                    itemsIndexed(lazyPagingListData) { index, data ->
+                        content(index, data!!)
+                    }
+                    //如果在加载途中遇到错误的话，pagingData的状态为append
+                    when (lazyPagingListData.loadState.append) {
+                        //加载失败
+                        is LoadState.Error -> {
+                            item {
+                                ErrorMoreRetryItem{
+                                    lazyPagingListData.retry()
+                                }
+                            }
+                        }
+                        //加载中
+                        LoadState.Loading -> {
+                            item {
+                                LoadingItem()
+                            }
+                        }
+                    }
+                }
+
+            }
         }
 
     }

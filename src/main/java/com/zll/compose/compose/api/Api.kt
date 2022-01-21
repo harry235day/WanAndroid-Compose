@@ -68,6 +68,33 @@ interface Api {
 
     @POST("user/login")
     @FormUrlEncoded
-    suspend fun login(@Field("username") username:String,@Field("password") password:String):BaseModel<Any>
+    suspend fun login(@Field("username") username: String, @Field("password") password: String): BaseModel<Any>
 
+    @GET("user/logout/json")
+    suspend fun logout(): BaseModel<Any>
+
+    /**
+     * 积分排行
+     */
+    @GET("coin/rank/{page}/json")
+    suspend fun loadScoreList(@Path("page") page: Int): CommonPageModel<ScoreListModel>
+
+    /**
+     * 热门词汇
+     */
+    @GET("hotkey/json")
+    suspend fun loadHotKey(): BaseModel<List<HotKeyModel>>
+
+    /**
+     * 搜索
+     */
+    @POST("article/query/{page}/json")
+    @FormUrlEncoded
+    suspend fun loadSearchResult(@Path("page") page: Int, @Field("k") key: String): CommonPageModel<ProjectListData>
+
+    /**
+     * 个人积分列表
+     */
+    @GET("lg/coin/list/{page}/json")
+    suspend fun loadScoreDetail(@Path("page")page:Int):CommonPageModel<ScoreListModel>
 }

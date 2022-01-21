@@ -26,6 +26,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.accompanist.flowlayout.FlowRow
 import com.zll.compose.compose.MainDestinations
 import com.zll.compose.compose.model.*
+import com.zll.compose.compose.navSearch
 import com.zll.compose.compose.ui.NestTopAndContentView
 import com.zll.compose.compose.ui.SwipeRefreshContent
 import com.zll.compose.compose.ui.TabLayoutCompose
@@ -58,7 +59,10 @@ fun SystemViewCompose(modifier: Modifier, navController: NavHostController, draw
                         title = "体系",
                         leftIcon = Icons.Default.Menu,
                         menuIcon = Icons.Filled.Search,
-                        leftClick = drawerClick
+                        leftClick = drawerClick,
+                        menuClick = {
+                            navSearch(navController)
+                        }
                     )
                     TabLayoutCompose(tabBarIndex = Nav.systemIndex, tabData = tabListData)
                 }

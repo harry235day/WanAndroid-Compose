@@ -22,6 +22,7 @@ import androidx.navigation.NavHostController
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.zll.compose.compose.MainDestinations
+import com.zll.compose.compose.navSearch
 import com.zll.compose.compose.page.home.HomeItemView
 import com.zll.compose.compose.page.home.getAuthor
 import com.zll.compose.compose.ui.*
@@ -61,7 +62,10 @@ fun HomeViewCompose(modifier: Modifier = Modifier, navHostController: NavHostCon
                     title = "玩Android",
                     leftIcon = Icons.Default.Menu,
                     menuIcon = Icons.Filled.Search,
-                    leftClick = drawerClick
+                    leftClick = drawerClick,
+                    menuClick = {
+                        navSearch(navHostController)
+                    }
                 )
             },
             content = { offset, dp ->

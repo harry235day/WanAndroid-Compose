@@ -3,15 +3,9 @@ package com.zll.compose.compose.page
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.ScaffoldState
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,44 +26,59 @@ import com.zll.compose.util.blueColor
 import com.zll.compose.views.ImageCircle
 import com.zll.compose.views.VerticalSpacer
 import kotlinx.coroutines.launch
+import java.io.File
 
 @Composable
-fun DrawerViewCompose(navController: NavHostController, vm: UserViewModel, name: String?, head: String?, coinCount: Int, rank: String?, scaffoldState: ScaffoldState, onClick: () -> Unit) {
+fun DrawerViewCompose(navController: NavHostController, vm: UserViewModel, name: String?, head: String?, 
+                      coinCount: Int, rank: String?, scaffoldState: ScaffoldState, drawerDismiss: () -> Unit) {
     val isLogin = vm.isLogin()
     Column(
         Modifier
             .statusBarsPadding()
             .fillMaxSize()
             .clickable {
-                onClick.invoke()
+                drawerDismiss.invoke()
             }) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(MaterialTheme.colors.primary)
                 .padding(10.dp)
-
+                .clickable {
+                    drawerDismiss()
+                    login(navController, isLogin)
+                },
+            contentAlignment = Alignment.TopEnd
         ) {
             Column(
                 Modifier
-                    .clickable {
-                        onClick()
-                        login(navController, isLogin)
-                    }
                     .fillMaxWidth()
                     .padding(10.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 ImageCircle(head ?: "", 60.dp)
                 VerticalSpacer(5.dp)
-                Text(text = name ?: "去登陆")
+                Text(text = name ?: "去登陆", color = Color.White, fontSize = 16.sp)
                 VerticalSpacer(5.dp)
-                Text(text = "积分：${if (coinCount <= 0) "--" else coinCount} 排行：${if (rank.isNullOrBlank()) "--" else rank} ")
+                Text(
+                    text = "积分：${if (coinCount <= 0) "--" else coinCount} 排行：${if (rank.isNullOrBlank()) "--" else rank}",
+                    color = Color.White, fontSize = 14.sp
+                )
+            }
+
+            IconButton(onClick = {
+                drawerDismiss()
+                navController.navigate(MainDestinations.SCORE)
+            }) {
+                Icon(Icons.Default.TrendingUp, contentDescription = null, tint = Color.White)
             }
         }
         VerticalSpacer()
         DrawerItemView(Icons.Default.DateRange, "我的积分") {
-
+            drawerDismiss()
+            login(navController,isLogin){
+                navController.navigate(MainDestinations.USER_SCORE)
+            }
         }
         DrawerItemView(Icons.Default.Favorite, "我的收藏") {
 
@@ -78,8 +87,11 @@ fun DrawerViewCompose(navController: NavHostController, vm: UserViewModel, name:
 
         }
         DrawerItemView(Icons.Default.Settings, "系统设置") {
-
+            drawerDismiss()
+            navController.navigate(MainDestinations.SETTING)
         }
+
+
     }
 }
 
@@ -92,11 +104,11 @@ fun login(navController: NavHostController, isLogin: Boolean, listener: () -> Un
 }
 
 @Composable
-fun DrawerItemView(icon: ImageVector, title: String, onClick: () -> Unit = {}) {
+fun DrawerItemView(icon: ImageVector, title: String, drawerDismiss: () -> Unit = {}) {
     Row(
         Modifier
             .fillMaxWidth()
-            .clickable { onClick.invoke() }
+            .clickable { drawerDismiss.invoke() }
             .padding(10.dp),
         verticalAlignment = Alignment.CenterVertically) {
 

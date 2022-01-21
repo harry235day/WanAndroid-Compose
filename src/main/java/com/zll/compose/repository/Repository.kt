@@ -104,4 +104,44 @@ class Repository {
             emit(api.login(name, pwd))
         }.flowOn(Dispatchers.IO)
     }
+
+    /**
+     * 退出
+     */
+    suspend fun logout(): Flow<BaseModel<Any>> {
+        return flow {
+            kotlinx.coroutines.delay(1000)
+            emit(api.logout())
+        }.flowOn(Dispatchers.IO)
+    }
+
+    /**
+     * 积分
+     */
+    suspend fun loadScoreList(page: Int): CommonPageModel<ScoreListModel> {
+        return api.loadScoreList(page)
+    }
+
+    /**
+     * 热门词汇
+     */
+    suspend fun loadHotKey(): Flow<BaseModel<List<HotKeyModel>>> {
+        return flow {
+            emit(api.loadHotKey())
+        }.flowOn(Dispatchers.IO)
+    }
+
+    /**
+     * 搜索结果
+     */
+    suspend fun loadSearchResult(page: Int, key: String): CommonPageModel<ProjectListData> {
+        return api.loadSearchResult(page, key)
+    }
+
+    /**
+     * 个人积分列表
+     */
+    suspend fun loadScoreDetail(page: Int):CommonPageModel<ScoreListModel>{
+        return api.loadScoreDetail(page)
+    }
 }

@@ -41,7 +41,8 @@ object CustomTheme {
 
         val systemUiCtrl = rememberSystemUiController()
         systemUiCtrl.setStatusBarColor(colors.primary)
-        systemUiCtrl.setSystemBarsColor(if (darkTheme) Color.Black else Color.White)
+        systemUiCtrl.setSystemBarsColor(colors.primary)
+        systemUiCtrl.setNavigationBarColor(if (darkTheme) Color.Black else Color.White)
 
         LaunchedEffect(StatusBar.isTransparentState.value) {
             if (StatusBar.isTransparentState.value) {

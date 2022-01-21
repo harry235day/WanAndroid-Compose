@@ -27,6 +27,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.zll.compose.compose.model.TabBaseModel
+import com.zll.compose.compose.navSearch
 import com.zll.compose.compose.page.home.HomeItemView
 import com.zll.compose.compose.page.home.getAuthor
 import com.zll.compose.compose.ui.NestTopAndContentView
@@ -92,7 +93,10 @@ fun ProjectViewCompose(modifier: Modifier, navController: NavHostController, dra
                         title = "项目",
                         leftIcon = Icons.Default.Menu,
                         menuIcon = Icons.Filled.Search,
-                        leftClick = drawerClick
+                        leftClick = drawerClick,
+                        menuClick = {
+                           navSearch(navController)
+                        }
                     )
                     TabLayoutCompose(tabBarIndex = Nav.projectIndex, tabData = tabListData as? List<TabBaseModel>)
                 }
