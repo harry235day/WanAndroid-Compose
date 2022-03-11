@@ -9,10 +9,16 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
+import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Paint
+import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.input.pointer.positionChange
 import androidx.compose.ui.input.pointer.util.VelocityTracker
 import androidx.compose.ui.layout.layout
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
@@ -82,3 +88,22 @@ fun Modifier.swipeToDismiss(
  * 最多显示几个数字
  */
 
+// -----------------
+/**
+ * 任意控件上 ，右上角红色圆点
+ *
+ *  drawContent()
+ */
+fun Modifier.redPoint(pointSize: Dp): Modifier = drawWithContent {
+    drawContent()
+    drawIntoCanvas {
+        val paint = Paint().apply {
+            var color = Color.Red
+        }
+        it.drawCircle(
+            center = Offset(x = size.width, y = 0f),
+            radius = (pointSize / 2).toPx(),
+            paint = paint
+        )
+    }
+}

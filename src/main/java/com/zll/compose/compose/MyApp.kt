@@ -60,12 +60,6 @@ fun MyApp(finishActivity: () -> Unit) {
                 bottomBar = {
                     Column() {
                         BottomBar(navController, tabs)
-                        Spacer(
-                            modifier = Modifier
-                                .background(Color.Black)
-                                .navigationBarsHeight()
-                                .fillMaxWidth()
-                        )
                     }
                 },
                 drawerGesturesEnabled = false,

@@ -53,7 +53,8 @@ fun BannerViewCompose(
             if (pagerState.pageCount > 0) {
                 delay(timeMillis)
                 //这里直接+1就可以循环，前提是infiniteLoop == true
-                val page = if (pagerState.currentPage + 1 >= banners!!.size) 0 else pagerState.currentPage + 1
+//                val page = if ((pagerState.currentPage + 1) >= banners!!.size) 0 else pagerState.currentPage + 1
+                val page = pagerState.currentPage + 1
                 pagerState.animateScrollToPage(page)
             }
         }
@@ -64,7 +65,7 @@ fun BannerViewCompose(
             contentAlignment = Alignment.BottomCenter
         ) {
             HorizontalPager(
-                count = banners!!.size, state = pagerState,
+                count = Int.MAX_VALUE, state = pagerState,
                 modifier = Modifier
                     .pointerInput(pagerState.currentPage) {
                         awaitPointerEventScope {
@@ -96,11 +97,11 @@ fun BannerViewCompose(
                             }
                         }
                     }
-                    .clickable(onClick = { onClick(banners[pagerState.currentPage].url) })
+                    .clickable(onClick = { onClick(banners!![pagerState.currentPage % banners.size].url) })
                     .fillMaxSize(),
             ) { index ->
                 Image(
-                    painter = rememberImagePainter(banners[index].imagePath),
+                    painter = rememberImagePainter(banners!![index % banners.size].imagePath),
                     modifier = Modifier.fillMaxSize(),
                     contentScale = ContentScale.Crop,
                     contentDescription = null
@@ -125,7 +126,7 @@ fun BannerViewCompose(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(
-                    banners[pagerState.currentPage].title ?: "",
+                    banners!![pagerState.currentPage % banners.size].title ?: "",
                     fontSize = 14.sp, color = textColor,
                     modifier = Modifier.weight(1f, true)
                 )
@@ -133,10 +134,10 @@ fun BannerViewCompose(
                     for (i in banners.indices) {
                         //大小
                         val size = remember { mutableStateOf(5.dp) }
-                        size.value = if (pagerState.currentPage == i) 7.dp else 5.dp
+                        size.value = if (pagerState.currentPage % banners.size == i) 7.dp else 5.dp
 
                         //颜色
-                        val color = if (pagerState.currentPage == i) Color.White else Color.Gray
+                        val color = if (pagerState.currentPage % banners.size == i) Color.White else Color.Gray
                         Box(
                             modifier = Modifier
                                 .clip(CircleShape)
